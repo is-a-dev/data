@@ -28,32 +28,22 @@ function loadData() {
             c4.classList = "px-4 py-2 outline outline-1 outline-gray-700";
 
             const records = [];
-            let onlyTXT = false;
-
-            const keys = Object.keys(i.record);
-
-            if(keys.length === 1 && keys[0] === "TXT") onlyTXT = true;
 
             Object.keys(i.record).forEach(record => {
                 if(record === "A" || record === "MX") {
-                    i.record[record].forEach(r => {
-                        records.push(`<span class="text-green-600 font-semibold">${record}</span> ${r}`);
+                    return i.record[record].forEach(r => {
+                        records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${r.toLowerCase()}`);
                     })
-
-                    return;
                 }
 
-                if(record === "URL") return records.push(`<span class="text-blue-600 font-semibold">${record}</span> <a href="${i.record[record]}" class="underline underline-2 hover:no-underline">${i.record[record]}</a>`);
+                if(record === "URL") {
+                    return records.push(`<span class="text-green-600 font-semibold">${record}</span> <a href="${i.record[record]}" class="underline underline-2 hover:no-underline">${i.record[record]}</a>`);
+                }
 
-                records.push(`<span class="text-green-600 font-semibold">${record}</span> ${i.record[record]}`);
+                records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${i.record[record].toLowerCase()}`);
             })
 
-            if(!onlyTXT) {
-                c1.innerHTML = `<a href="https://${i.subdomain}.is-a.dev" class="text-blue-600 hover:text-blue-700">${i.subdomain}</a>`;
-            } else {
-                c1.innerHTML = i.subdomain;
-            }
-
+            c1.innerHTML = `<a href="https://${i.subdomain}.is-a.dev" class="text-blue-600 hover:text-blue-700">${i.subdomain}</a>`;
             c2.innerHTML = i.owner.username ? `<a href="https://github.com/${i.owner.username}" class="underline underline-2 hover:no-underline">${i.owner.username}</a>` : `<span class="italic">None</span>`;
             c3.innerHTML = i.owner.email ? `<a href="mailto:${i.owner.email.replace(" (at) ", "@")}" class="underline underline-2 hover:no-underline">${i.owner.email.replace(" (at) ", "@")}</a>` : `<span class="italic">None</span>`;
             c4.innerHTML = records.join("<br>");

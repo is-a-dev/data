@@ -19,13 +19,12 @@ function loadData() {
 
             let c1 = row.insertCell(0);
             let c2 = row.insertCell(1);
-            let c3 = row.insertCell(2);
-            let c4 = row.insertCell(3);
+            let c3 = row.insertCell(3);
 
             c1.classList = "px-4 py-2 outline outline-1 outline-gray-700";
             c2.classList = "px-4 py-2 outline outline-1 outline-gray-700";
             c3.classList = "px-4 py-2 outline outline-1 outline-gray-700";
-            c4.classList = "px-4 py-2 outline outline-1 outline-gray-700";
+            c3.classList = "px-4 py-2 outline outline-1 outline-gray-700";
 
             const records = [];
 
@@ -44,9 +43,8 @@ function loadData() {
             })
 
             c1.innerHTML = `<a href="https://${i.subdomain}.is-a.dev" class="text-blue-600 hover:text-blue-700">${i.subdomain}</a>`;
-            c2.innerHTML = i.owner.username ? `<a href="https://github.com/${i.owner.username}" class="underline underline-2 hover:no-underline">${i.owner.username}</a>` : `<span class="italic">None</span>`;
-            c3.innerHTML = i.owner.email ? `<a href="mailto:${i.owner.email.replace(" (at) ", "@")}" class="underline underline-2 hover:no-underline">${i.owner.email.replace(" (at) ", "@")}</a>` : `<span class="italic">None</span>`;
-            c4.innerHTML = records.join("<br>");
+            c2.innerHTML = `<span class="font-semibold">Username:</span> ${i.owner.username ? `<a href="https://github.com/${i.owner.username}" class="underline underline-2 hover:no-underline">${i.owner.username}</a>` : `<span class="italic">None</span>`}<br><span class="font-semibold">Email:</span> ${i.owner.email ? `<a href="mailto:${i.owner.email.replace(" (at) ", "@")}" class="underline underline-2 hover:no-underline">${i.owner.email.replace(" (at) ", "@")}</a>` : `<span class="italic">None</span>`}`;
+            c3.innerHTML = records.join("<br>");
         })
     })
 }

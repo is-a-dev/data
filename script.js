@@ -19,7 +19,7 @@ function loadData() {
 
             let c1 = row.insertCell(0);
             let c2 = row.insertCell(1);
-            let c3 = row.insertCell(3);
+            let c3 = row.insertCell(2);
 
             c1.classList = "px-4 py-2 outline outline-1 outline-gray-700";
             c2.classList = "px-4 py-2 outline outline-1 outline-gray-700";

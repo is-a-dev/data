@@ -24,22 +24,23 @@ function loadData() {
             c1.classList = "px-4 py-2 outline outline-1 outline-gray-700";
             c2.classList = "px-4 py-2 outline outline-1 outline-gray-700";
             c3.classList = "px-4 py-2 outline outline-1 outline-gray-700";
-            c3.classList = "px-4 py-2 outline outline-1 outline-gray-700";
 
             const records = [];
 
             Object.keys(i.record).forEach(record => {
-                if(record === "A" || record === "MX") {
-                    return i.record[record].forEach(r => {
-                        records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${r.toLowerCase()}`);
-                    })
+                if(record === "A" || record === "MX" || record === "TXT") {
+                    if(Array.isArray(i.record[record])) {
+                        i.record[record].forEach(r => {
+                            records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${r}`);
+                        });
+                    } else {
+                        records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${i.record[record]}`);
+                    }
+                } else if(record === "URL") {
+                    records.push(`<span class="text-green-600 font-semibold">${record}</span> <a href="${i.record[record]}" class="underline underline-2 hover:no-underline">${i.record[record]}</a>`);
+                } else {
+                    records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${i.record[record]}`);
                 }
-
-                if(record === "URL") {
-                    return records.push(`<span class="text-green-600 font-semibold">${record}</span> <a href="${i.record[record]}" class="underline underline-2 hover:no-underline">${i.record[record]}</a>`);
-                }
-
-                records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${i.record[record].toLowerCase()}`);
             })
 
             c1.innerHTML = `<a href="https://${i.subdomain}.is-a.dev" class="text-blue-600 hover:text-blue-700">${i.subdomain}</a>`;

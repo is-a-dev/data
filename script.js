@@ -28,7 +28,7 @@ function loadData() {
             const records = [];
 
             Object.keys(i.record).forEach(record => {
-                if(record === "A" || record === "MX" || record === "TXT") {
+                if(record === "A" || record === "AAAA" || record === "MX" || record === "TXT") {
                     if(Array.isArray(i.record[record])) {
                         i.record[record].forEach(r => {
                             records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${r}`);

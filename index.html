@@ -6,16 +6,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- HTML Meta Tags -->
-        <title>Domains | is-a.dev</title>
+        <title>Domain Data | is-a.dev</title>
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
         <!-- Scripts -->
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
 
+    <style>
+        .chart-container {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+    </style>
+
     <body class="bg-gray-800 text-white">
+        <div class="grid grid-cols-2 gap-4 p-8">
+            <div class="border p-4 chart-container">
+                <canvas id="pieChart" width="200" height="200"></canvas>
+            </div>
+            <div class="border p-4 chart-container">
+                <canvas id="barChart" width="200" height="200"></canvas>
+            </div>
+        </div>
+
         <div class="relative overflow-x-auto">
             <table id="data" class="w-full text-sm text-left text-gray-400">
                 <thead class="text-xs uppercase bg-gray-900 text-gray-400">
@@ -27,8 +45,29 @@
                 <tbody id="data-body"></tbody>
             </table>
         </div>
-    </body>
 
-    <script src="/script.js"></script>
-    <script>loadData();</script>
+        <script src="script.js"></script>
+
+        <script>
+            loadData();
+
+            // Fetch data and create the charts
+            fetch("https://raw-api.is-a.dev", {
+                method: "GET"
+            }).then(res => res.json()).then(data => {
+                // Sort data based on subdomain
+                data.sort((a, b) => a.subdomain.localeCompare(b.subdomain));
+
+                // Call the function to create the pie chart
+                const chartData = extractChartData(data);
+                createPieChart(chartData.labels, chartData.dataValues, "Record Types");
+
+                // Call the function to create the bar chart
+                const serviceTypes = ["Cloudflare", "DBH", "Email", "GitHub"]; // Add more service types as needed
+                const barChartData = extractBarChartData(data, serviceTypes);
+
+                createBarChart(barChartData.labels, barChartData.dataValues, "Most Used Services");
+            });
+        </script>
+    </body>
 </html>

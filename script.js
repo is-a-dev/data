@@ -3,14 +3,10 @@ const tableBody = document.getElementById("data-body");
 const types = {
     Cloudflare: ".pages.dev",
     DBH: "69.30.249.53",
-    GitHub: ".github.io"
-}
+    GitHub: ".github.io",
+};
 
-const hiddenDomains = [
-    "_psl",
-    "@",
-    "www"
-]
+const hiddenDomains = ["_psl", "@", "www"];
 
 // Function to create a pie chart
 function createPieChart(labels, data, chartTitle) {
@@ -20,11 +16,13 @@ function createPieChart(labels, data, chartTitle) {
         type: "pie",
         data: {
             labels: labels,
-            datasets: [{
-                data: data,
-                backgroundColor: generateRandomColors(labels.length),
-                borderWidth: 0
-            }]
+            datasets: [
+                {
+                    data: data,
+                    backgroundColor: generateRandomColors(labels.length),
+                    borderWidth: 0,
+                },
+            ],
         },
         options: {
             responsive: true,
@@ -35,18 +33,18 @@ function createPieChart(labels, data, chartTitle) {
                     text: chartTitle,
                     font: {
                         size: 16,
-                        weight: "bold"
+                        weight: "bold",
                     },
-                    color: "rgb(66, 133, 244)" // Use a different color for the title
+                    color: "rgb(66, 133, 244)", // Use a different color for the title
                 },
                 tooltip: {
                     enabled: true,
                     backgroundColor: "rgba(0, 0, 0, 0.7)",
                     borderColor: "rgba(0, 0, 0, 0.9)",
-                    borderWidth: 1
-                }
-            }
-        }
+                    borderWidth: 1,
+                },
+            },
+        },
     });
 }
 
@@ -64,9 +62,9 @@ function generateRandomColors(numColors) {
 function extractChartData(data) {
     const recordCounts = {};
 
-    data.forEach(i => {
+    data.forEach((i) => {
         if (!hiddenDomains.includes(i.subdomain)) {
-            Object.keys(i.record).forEach(record => {
+            Object.keys(i.record).forEach((record) => {
                 if (recordCounts[record]) {
                     recordCounts[record]++;
                 } else {
@@ -90,12 +88,14 @@ function createBarChart(labels, data, chartTitle) {
         type: "bar",
         data: {
             labels: labels,
-            datasets: [{
-                label: chartTitle,
-                data: data,
-                backgroundColor: generateRandomColors(labels.length),
-                borderWidth: 0
-            }]
+            datasets: [
+                {
+                    label: chartTitle,
+                    data: data,
+                    backgroundColor: generateRandomColors(labels.length),
+                    borderWidth: 0,
+                },
+            ],
         },
         options: {
             responsive: true,
@@ -103,16 +103,16 @@ function createBarChart(labels, data, chartTitle) {
             plugins: {
                 legend: {
                     display: true,
-                    position: "bottom" // Change legend position to bottom
+                    position: "bottom", // Change legend position to bottom
                 },
                 tooltip: {
                     enabled: true,
                     backgroundColor: "rgba(0, 0, 0, 0.7)",
                     borderColor: "rgba(0, 0, 0, 0.9)",
-                    borderWidth: 0
-                }
-            }
-        }
+                    borderWidth: 0,
+                },
+            },
+        },
     });
 }
 
@@ -120,10 +120,10 @@ function createBarChart(labels, data, chartTitle) {
 function extractBarChartData(data, serviceTypes) {
     const serviceCounts = {};
 
-    data.forEach(i => {
+    data.forEach((i) => {
         if (!hiddenDomains.includes(i.subdomain)) {
             // Check if the subdomain type matches any of the specified service types
-            const matchedServiceType = serviceTypes.find(type => {
+            const matchedServiceType = serviceTypes.find((type) => {
                 if (type === "Cloudflare" && i.record.CNAME?.endsWith(types[type])) return true;
                 if (type === "DBH" && i.record.A?.includes(types[type])) return true;
                 if (type === "Email" && i.record.MX?.length) return true;
@@ -150,44 +150,46 @@ function extractBarChartData(data, serviceTypes) {
 
 function loadData() {
     fetch("https://raw-api.is-a.dev", {
-        method: "GET"
-    }).then(res => res.json()).then(data => {
-        data.sort((a, b) => a.subdomain.localeCompare(b.subdomain));
+        method: "GET",
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            data.sort((a, b) => a.subdomain.localeCompare(b.subdomain));
 
-        data.forEach(i => {
-            if(hiddenDomains.includes(i.subdomain)) return;
+            data.forEach((i) => {
+                if (hiddenDomains.includes(i.subdomain)) return;
 
-            let row = tableBody.insertRow(-1);
+                let row = tableBody.insertRow(-1);
 
-            let c1 = row.insertCell(0);
-            let c2 = row.insertCell(1);
-            let c3 = row.insertCell(2);
+                let c1 = row.insertCell(0);
+                let c2 = row.insertCell(1);
+                let c3 = row.insertCell(2);
 
-            c1.classList = "px-4 py-2 outline outline-1 outline-gray-700";
-            c2.classList = "px-4 py-2 outline outline-1 outline-gray-700";
-            c3.classList = "px-4 py-2 outline outline-1 outline-gray-700";
+                c1.classList = "px-4 py-2 outline outline-1 outline-gray-700";
+                c2.classList = "px-4 py-2 outline outline-1 outline-gray-700";
+                c3.classList = "px-4 py-2 outline outline-1 outline-gray-700";
 
-            const records = [];
+                const records = [];
 
-            Object.keys(i.record).forEach(record => {
-                if(record === "A" || record === "AAAA" || record === "MX" || record === "TXT") {
-                    if(Array.isArray(i.record[record])) {
-                        i.record[record].forEach(r => {
-                            records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${r}`);
-                        });
+                Object.keys(i.record).forEach((record) => {
+                    if (record === "A" || record === "AAAA" || record === "MX" || record === "TXT") {
+                        if (Array.isArray(i.record[record])) {
+                            i.record[record].forEach((r) => {
+                                records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${r}`);
+                            });
+                        } else {
+                            records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${i.record[record]}`);
+                        }
+                    } else if (record === "URL") {
+                        records.push(`<span class="text-green-600 font-semibold">${record}</span> <a href="${i.record[record]}" class="underline underline-2 hover:no-underline">${i.record[record]}</a>`);
                     } else {
                         records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${i.record[record]}`);
                     }
-                } else if(record === "URL") {
-                    records.push(`<span class="text-green-600 font-semibold">${record}</span> <a href="${i.record[record]}" class="underline underline-2 hover:no-underline">${i.record[record]}</a>`);
-                } else {
-                    records.push(`<span class="text-blue-600 font-semibold">${record}</span> ${i.record[record]}`);
-                }
-            })
+                });
 
-            c1.innerHTML = `<a href="https://${i.subdomain}.is-a.dev" class="text-blue-600 hover:text-blue-700">${i.subdomain}</a>`;
-            c2.innerHTML = `<span class="font-semibold">Username:</span> ${i.owner.username ? `<a href="https://github.com/${i.owner.username}" class="underline underline-2 hover:no-underline">${i.owner.username}</a>` : `<span class="italic">None</span>`}<br><span class="font-semibold">Email:</span> ${i.owner.email ? `<a href="mailto:${i.owner.email.replace(" (at) ", "@")}" class="underline underline-2 hover:no-underline">${i.owner.email.replace(" (at) ", "@")}</a>` : `<span class="italic">None</span>`}`;
-            c3.innerHTML = records.join("<br>");
-        })
-    })
+                c1.innerHTML = `<a href="https://${i.subdomain}.is-a.dev" class="text-blue-600 hover:text-blue-700">${i.subdomain}</a>`;
+                c2.innerHTML = `<span class="font-semibold">Username:</span> ${i.owner.username ? `<a href="https://github.com/${i.owner.username}" class="underline underline-2 hover:no-underline">${i.owner.username}</a>` : `<span class="italic">None</span>`}<br><span class="font-semibold">Email:</span> ${i.owner.email ? `<a href="mailto:${i.owner.email.replace(" (at) ", "@")}" class="underline underline-2 hover:no-underline">${i.owner.email.replace(" (at) ", "@")}</a>` : `<span class="italic">None</span>`}`;
+                c3.innerHTML = records.join("<br>");
+            });
+        });
 }

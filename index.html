@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- HTML Meta Tags -->
         <title>Domain Data | is-a.dev</title>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
         <!-- Scripts -->
         <script src="https://cdn.tailwindcss.com"></script>
@@ -53,21 +53,23 @@
 
             // Fetch data and create the charts
             fetch("https://raw-api.is-a.dev", {
-                method: "GET"
-            }).then(res => res.json()).then(data => {
-                // Sort data based on subdomain
-                data.sort((a, b) => a.subdomain.localeCompare(b.subdomain));
+                method: "GET",
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    // Sort data based on subdomain
+                    data.sort((a, b) => a.subdomain.localeCompare(b.subdomain));
 
-                // Call the function to create the pie chart
-                const chartData = extractChartData(data);
-                createPieChart(chartData.labels, chartData.dataValues, "Record Types");
+                    // Call the function to create the pie chart
+                    const chartData = extractChartData(data);
+                    createPieChart(chartData.labels, chartData.dataValues, "Record Types");
 
-                // Call the function to create the bar chart
-                const serviceTypes = ["Cloudflare", "DBH", "Email", "GitHub"]; // Add more service types as needed
-                const barChartData = extractBarChartData(data, serviceTypes);
+                    // Call the function to create the bar chart
+                    const serviceTypes = ["Cloudflare", "DBH", "Email", "GitHub"]; // Add more service types as needed
+                    const barChartData = extractBarChartData(data, serviceTypes);
 
-                createBarChart(barChartData.labels, barChartData.dataValues, "Most Used Services");
-            });
+                    createBarChart(barChartData.labels, barChartData.dataValues, "Most Used Services");
+                });
         </script>
     </body>
 </html>

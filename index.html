@@ -22,9 +22,34 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
+
+        /* Loading spinner styles */
+        .spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000; /* Ensure it's above other content */
+            
+        }
+
+        .spinner .fa-spinner {
+            font-size: 40px;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 
     <body class="bg-gray-800 text-white">
+        <!-- Loading spinner -->
+        <div class="spinner" id="spinner">
+            <i class="fas fa-spinner fa-spin text-gray-400"></i>
+        </div>
         <div class="grid grid-cols-2 gap-4 p-8">
             <div class="border p-4 chart-container">
                 <canvas id="pieChart" width="200" height="200"></canvas>
@@ -34,12 +59,38 @@
             </div>
         </div>
 
+        <!-- User Controls -->
+        <div class="flex justify-between p-8">
+            <div>
+                <label for="filterType" class="block mb-2 text-sm font-medium text-gray-300">Filter by Domain Type</label>
+                <select id="filterType" class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="">All</option>
+                    <option disabled value="Record services">Services</option>
+                    <option value="Cloudflare">Cloudflare</option>
+                    <option value="DBH">DBH</option>
+                    <option value="GitHub">GitHub</option>
+                    <option value="Email">Email</option>
+                    <option disabled value="Record Types">Record Types</option>
+                    <option value="A">A</option>
+                    <option value="MX">MX</option>
+                    <option value="TXT">TXT</option>
+                    <option value="CNAME">CNAME</option>
+                </select>
+            </div>
+            <div>
+                <label for="searchRecord" class="block mb-2 text-sm font-medium text-gray-300">Search Records</label>
+                <input type="text" id="searchRecord" class="bg-gray-700 border border-gray-600 text-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Search for a record...">
+            </div>
+        </div>
+
         <div class="relative overflow-x-auto">
             <table id="data" class="w-full text-sm text-left text-gray-400">
                 <thead class="text-xs uppercase bg-gray-900 text-gray-400">
-                    <th scope="col" class="px-4 py-3 outline outline-1 outline-gray-700">Subdomain</th>
-                    <th scope="col" class="px-4 py-3 outline outline-1 outline-gray-700">Owner</th>
-                    <th scope="col" class="px-4 py-3 outline outline-1 outline-gray-700">Records</th>
+                    <tr>
+                        <th scope="col" class="px-4 py-3 outline outline-1 outline-gray-700">Subdomain</th>
+                        <th scope="col" class="px-4 py-3 outline outline-1 outline-gray-700">Owner</th>
+                        <th scope="col" class="px-4 py-3 outline outline-1 outline-gray-700">Records</th>
+                    </tr>
                 </thead>
 
                 <tbody id="data-body"></tbody>
@@ -65,7 +116,7 @@
                     createPieChart(chartData.labels, chartData.dataValues, "Record Types");
 
                     // Call the function to create the bar chart
-                    const serviceTypes = ["Cloudflare", "DBH", "Email", "GitHub"]; // Add more service types as needed
+                    const serviceTypes = ["Cloudflare", "DBH", "Email", "GitHub", "A", "MX", "TXT", "CNAME"]; // Add more service types as needed
                     const barChartData = extractBarChartData(data, serviceTypes);
 
                     createBarChart(barChartData.labels, barChartData.dataValues, "Most Used Services");

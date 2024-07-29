@@ -67,11 +67,13 @@
                     <option value="">All</option>
                     <option disabled value="Record services">Services</option>
                     <option value="Cloudflare">Cloudflare</option>
-                    <option value="DBH">DBH</option>
                     <option value="GitHub">GitHub</option>
+                    <option value="GitHub">Netlify</option>
+                    <option value="GitHub">Railway</option>
                     <option value="Email">Email</option>
                     <option disabled value="Record Types">Record Types</option>
                     <option value="A">A</option>
+                    <option value="AAAA">AAAA</option>
                     <option value="MX">MX</option>
                     <option value="TXT">TXT</option>
                     <option value="CNAME">CNAME</option>
@@ -116,7 +118,7 @@
                     createPieChart(chartData.labels, chartData.dataValues, "Record Types");
 
                     // Call the function to create the bar chart
-                    const serviceTypes = ["Cloudflare", "DBH", "Email", "GitHub", "A", "MX", "TXT", "CNAME"]; // Add more service types as needed
+                    const serviceTypes = ["Cloudflare", "GitHub", "Netlify", "Railway", "Email", "A", "AAAA", "MX", "TXT", "CNAME"]; // Add more service types as needed
                     const barChartData = extractBarChartData(data, serviceTypes);
 
                     createBarChart(barChartData.labels, barChartData.dataValues, "Most Used Services");

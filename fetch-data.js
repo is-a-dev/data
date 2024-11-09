@@ -5,7 +5,7 @@ fetch("https://raw-api.is-a.dev")
         let totalRecords = 0;
         const uniqueUsers = [...new Set(data.map((domain) => domain.owner.username))].length;
         const averageDomainsPerUser = (totalDomains / uniqueUsers).toFixed(1);
-        const userWithMostDomains = [
+        let userWithMostDomains = [
             ...new Set(data.map((domain) => domain.owner.username)),
         ].reduce((a, b) =>
             data.filter((domain) => domain.owner.username === a).length >=
@@ -13,18 +13,7 @@ fetch("https://raw-api.is-a.dev")
                 ? a
                 : b
         );
-        const userWithMostRecords = [
-            ...new Set(data.map((domain) => domain.owner.username)),
-        ].reduce((a, b) =>
-            data
-                .filter((domain) => domain.owner.username === a)
-                .reduce((acc, domain) => acc + Object.keys(domain.record).length, 0) >=
-            data
-                .filter((domain) => domain.owner.username === b)
-                .reduce((acc, domain) => acc + Object.keys(domain.record).length, 0)
-                ? a
-                : b
-        );
+        userWithMostDomains = `${userWithMostDomains} (${data.filter((domain) => domain.owner.username === userWithMostDomains).length})`;
 
         let A = 0;
         let AAAA = 0;
@@ -99,7 +88,6 @@ fetch("https://raw-api.is-a.dev")
         document.getElementById("unique-users").innerText = uniqueUsers;
         document.getElementById("average-domains-per-user").innerText = averageDomainsPerUser;
         document.getElementById("user-with-most-domains").innerText = userWithMostDomains;
-        document.getElementById("user-with-most-records").innerText = userWithMostRecords;
         document.getElementById("a-records").innerText = A;
         document.getElementById("aaaa-records").innerText = AAAA;
         document.getElementById("caa-records").innerText = CAA;

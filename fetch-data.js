@@ -100,7 +100,7 @@ fetch("https://raw-api.is-a.dev")
         document.getElementById("url-records").innerText = URL;
     });
 
-fetch("https://api.hrsn.net/is-a-dev/zone-updated")
+fetch("https://api.hrsn.net/v1/is-a-dev/zone-updated")
     .then((response) => response.json())
     .then((data) => {
         document.getElementById("zone-updated").innerText = data.timestamp.rfc;

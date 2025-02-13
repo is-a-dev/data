@@ -23,34 +23,23 @@
         <h3 class="text-xl font-semibold my-4">Domain Statistics</h3>
 
         <ul>
-            <li><span class="font-semibold">Total Domains</span>: <span id="total-domains">Loading...</span></li>
-            <li><span class="font-semibold">Total Records</span>: <span id="total-records">Loading...</span></li>
-            <li><span class="font-semibold">Unique Users</span>: <span id="unique-users">Loading...</span></li>
-            <li><span class="font-semibold">Average amount of domains per user</span>: <span id="average-domains-per-user">Loading...</span></li>
-            <li><span class="font-semibold">User with the most domains</span>: <span id="user-with-most-domains">Loading...</span></li>
+            <li><span class="font-semibold">Subdomains</span>: <span id="subdomains">...</span></li>
+            <li><span class="font-semibold">Records</span>: <span id="records">...</span></li>
+            <li><span class="font-semibold">Unique users</span>: <span id="unique-users">...</span></li>
+            <li><span class="font-semibold">Average domains per user</span>: <span id="average-domains-per-user">...</span></li>
+            <li><span class="font-semibold">Most domains</span>: <span id="most-domains">...</span></li>
         </ul>
 
         <hr class="mt-4">
 
         <h3 class="text-xl font-semibold my-4">DNS Records</h3>
 
-        <ul>
-            <li><span class="font-semibold">A</span>: <span id="a-records">Loading...</span></li>
-            <li><span class="font-semibold">AAAA</span>: <span id="aaaa-records">Loading...</span></li>
-            <li><span class="font-semibold">CAA</span>: <span id="caa-records">Loading...</span></li>
-            <li><span class="font-semibold">CNAME</span>: <span id="cname-records">Loading...</span></li>
-            <li><span class="font-semibold">DS</span>: <span id="ds-records">Loading...</span></li>
-            <li><span class="font-semibold">MX</span>: <span id="mx-records">Loading...</span></li>
-            <li><span class="font-semibold">NS</span>: <span id="ns-records">Loading...</span></li>
-            <li><span class="font-semibold">SRV</span>: <span id="srv-records">Loading...</span></li>
-            <li><span class="font-semibold">TXT</span>: <span id="txt-records">Loading...</span></li>
-            <li><span class="font-semibold">URL</span>: <span id="url-records">Loading...</span></li>
-        </ul>
+        <ul id="records-list"></ul>
 
         <hr class="mt-4">
 
         <footer class="mt-4">
-            <p><span class="font-semibold">Zone last updated</span>: <span id="zone-updated">Loading...</span></p>
+            <p><span class="font-semibold">Zone last updated</span>: <span id="zone-updated">...</span></p>
         </footer>
 
         <script src="fetch-data.js"></script>

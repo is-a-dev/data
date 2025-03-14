@@ -1,10 +1,12 @@
 fetch("https://raw.is-a.dev")
     .then((response) => response.json())
     .then((data) => {
+        data = data.filter((domain) => !domain.reserved);
+
         const subdomains = data.length;
         const uniqueUsers = [...new Set(data.map((domain) => domain.owner.username))].length;
         const averageDomainsPerUser = (subdomains / uniqueUsers).toFixed(1);
-        const mostDomains = [...new Set(data.map((domain) => domain.owner.username))].reduce((a, b) =>
+        const mostDomains = [...new Set(data.filter((domain) => domain.owner.username !== "is-a-dev").map((domain) => domain.owner.username))].reduce((a, b) =>
             data.filter((domain) => domain.owner.username === a).length >=
             data.filter((domain) => domain.owner.username === b).length
                 ? a

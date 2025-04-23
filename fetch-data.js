@@ -1,4 +1,4 @@
-fetch("https://raw.is-a.dev")
+fetch("https://raw.is-a.dev/v2.json")
     .then((response) => response.json())
     .then((data) => {
         data = data.filter((domain) => !domain.reserved);
@@ -17,7 +17,7 @@ fetch("https://raw.is-a.dev")
         let totalRecords = 0;
 
         for (const domain of data) {
-            for (const [recordType, recordValue] of Object.entries(domain.record)) {
+            for (const [recordType, recordValue] of Object.entries(domain.records)) {
                 if (!recordCounts[recordType]) recordCounts[recordType] = 0;
                 if (Array.isArray(recordValue)) {
                     recordCounts[recordType] += recordValue.length;

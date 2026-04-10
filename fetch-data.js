@@ -46,9 +46,3 @@ fetch("https://raw.is-a.dev/v2.json")
             listItem.innerHTML = `<span class="font-semibold">${recordType}</span>: ${count}`;
         }
     });
-
-fetch("https://api.hrsn.net/v1/is-a-dev/zone-updated")
-    .then((response) => response.json())
-    .then((data) => {
-        document.getElementById("zone-updated").innerText = data.timestamp.rfc;
-    });
